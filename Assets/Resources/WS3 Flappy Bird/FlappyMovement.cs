@@ -7,8 +7,8 @@ public class FlappyMovement : MonoBehaviour
 
     //declaring variables
     [SerializeField] private float flapVelocity = 55f;
-    [SerializeField] private float maxFallSpeed = -10;
-    [SerializeField] private int maxRiseSpeed = 10.5;
+    [SerializeField] private float maxFallSpeed = -10.5f;
+    [SerializeField] private float maxRiseSpeed = 10.5f;
     Rigidbody2D _rb;
 
     void Start()

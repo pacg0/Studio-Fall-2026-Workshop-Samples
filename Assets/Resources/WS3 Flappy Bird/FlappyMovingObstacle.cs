@@ -9,7 +9,7 @@ public class FlappyMovingObstacle : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _rb.linearVelocity = _moveSpeed;
+        _rb.linearVelocityX = _moveSpeed;
     }
 
     private void Update()

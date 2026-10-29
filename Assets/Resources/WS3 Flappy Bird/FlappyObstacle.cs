@@ -13,7 +13,7 @@ public class FlappyObstacle : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.x <= 0)
+        if (transform.position.x <= -10)
             Destroy(gameObject);
     }
 }
