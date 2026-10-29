@@ -5,10 +5,6 @@ using UnityEngine.SceneManagement;
 public class FlappyMovement : MonoBehaviour
 {
 
-    //Oh no! Our code has bugs! 
-    //Help fix them! 
-
-
     //declaring variables
     [SerializeField] private float flapVelocity = 55f;
     [SerializeField] private float maxFallSpeed = -10;
@@ -35,7 +31,7 @@ public class FlappyMovement : MonoBehaviour
     }
 
     //Collision with obstacles
-    private void OnCollisionEnter(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.CompareTag("Obstacle"))
