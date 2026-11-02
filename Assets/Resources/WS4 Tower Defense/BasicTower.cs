@@ -3,21 +3,24 @@ using UnityEngine;
 
 public class BasicTower : Tower
 {
-    [SerializeField] GameObject myProjectile;
-
+    GameObject currTarget;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        InvokeRepeating("Shoot", 0, attackSpeed);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Shoot()
     {
-        //every myTower.attackspeed, attack()
-    }
-
-    public override void Shoot(GameObject target)
-    {
-
+        if (EnemiesInRange())
+        {
+            if (currTarget == null)
+            {
+                currTarget = FindEnemy();
+            }
+            Debug.Log(currTarget);
+            RotateTowards(currTarget);
+            GameObject p = Instantiate(projectile,transform.position,transform.rotation);
+        }
     }
 }
