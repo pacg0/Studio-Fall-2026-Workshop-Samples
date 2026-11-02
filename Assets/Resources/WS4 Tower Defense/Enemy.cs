@@ -74,11 +74,20 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Projectile"))
+        
+        
+        if (other.CompareTag("Projectile"))
         {
-            //health -= collision.gameObject.getDamage(); 
+            Projectile proj = other.GetComponent<Projectile>();
+            if (proj != null)
+            {
+                health -= proj.GetDamage();
+                //Debug.Log("Ouch");
+            }
+            
+            Destroy(other.gameObject);
         }
     }
 
