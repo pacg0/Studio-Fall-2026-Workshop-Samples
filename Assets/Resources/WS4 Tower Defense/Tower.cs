@@ -2,34 +2,38 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] private float attackRange; 
-    [SerializeField] private float attackSpeed; 
-    [SerializeField] float cost; 
-    public void FindEnemy()
-    {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
+    public float attackRange;
+    public float attackSpeed;
+    public int cost;
 
-        GameObject nearestTarget = null;
-        float closestDistance = attackRange;
+    //public void FindEnemy()
+    //{
+    //    GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
 
-        foreach (GameObject target in targets)
-        {
-            float distance = Vector2.Distance(transform.position, target.transform.position);
+    //    GameObject nearestTarget = null;
+    //    float closestDistance = attackRange;
 
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                nearestTarget = target;
-            }
-        }
+    //    foreach (GameObject target in targets)
+    //    {
+    //        float distance = Vector2.Distance(transform.position, target.transform.position);
 
-        if (nearestTarget != null)
-        {
-            Vector2 direction = nearestTarget.transform.position - transform.position;
+    //        if (distance < closestDistance)
+    //        {
+    //            closestDistance = distance;
+    //            nearestTarget = target;
+    //        }
+    //    }
 
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    //    if (nearestTarget != null)
+    //    {
+    //        Vector2 direction = nearestTarget.transform.position - transform.position;
 
-            transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
-    }
+    //        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+    //        transform.rotation = Quaternion.Euler(0, 0, angle);
+    //    }
+    //}
+
+    public virtual void Shoot(GameObject target) { }
+
 }

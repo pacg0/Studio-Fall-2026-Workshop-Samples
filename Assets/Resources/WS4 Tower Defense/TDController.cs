@@ -4,7 +4,7 @@ using System.Collections;
 
 public class TDController : MonoBehaviour
 {
-    int money = 0;
+    [SerializeField] int money = 25;
 
     //spawninfo binds a delay to a specific unit, unit will spawn then wait to spawn next one
     [System.Serializable]
@@ -32,20 +32,21 @@ public class TDController : MonoBehaviour
 
     void Start()
     {
-
     }
 
     void Update()
     {
     }
-    
-    public int getMoney()
+
+    public bool TrySubtractMoney(int amt)
     {
-        return money;
+        if (money - amt < 0) return false;
+        money -= amt;
+        return true;
     }
 
 
-    
+
     public void BeginWave()
     {
         if (isSpawningWave)

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
-
 enum TowerType
 {
     None,
@@ -11,9 +11,6 @@ enum TowerType
     Freeze,
     Slow
 }
-
-
-
 public class UIManager : MonoBehaviour
 {
     TowerType selectedTower = TowerType.None;
@@ -21,9 +18,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] Tilemap placeable;
     bool canPlace = false;
 
+    [Header("Tower Prefabs")]
+    [SerializeField] Tower basicPrefab;
+    [SerializeField] Tower spreadPrefab;
+    [SerializeField] Tower shotgunPrefab;
+    [SerializeField] Tower freezePrefab;
+    [SerializeField] Tower slowPrefab;
+
+    TDController controller;
+
 
     private void Start()
     {
+        controller = GetComponent<TDController>();
     }
 
     void Update()
@@ -47,7 +54,9 @@ public class UIManager : MonoBehaviour
     public void SelectTower(int towerType)
     {
         selectedTower = (TowerType)towerType;
+        float range = GetTowerPrefab(selectedTower).attackRange;
         Debug.Log("Selected Tower: " + selectedTower);
+        ghost.transform.localScale = new Vector3(range,range,1);
         ghost.SetActive(true);
     }
 
@@ -56,45 +65,38 @@ public class UIManager : MonoBehaviour
         
         if(selectedTower != TowerType.None)
         {
-            
-
             ghost.SetActive(false);
-            selectedTower = TowerType.None;
-
+            Tower t = GetTowerPrefab(selectedTower);
+            
             if (canPlace)
             {
-                Vector3 p = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                if (controller.TrySubtractMoney(t.cost))
+                {
+                    Vector3 p = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                    Instantiate(t, p, Quaternion.identity);
+                }
             }
+            selectedTower = TowerType.None;
         }
-
-
-        // if (!context.performed)
-        //     return;
-
-        // if (selectedTower != TowerType.None)
-        // {
-        //     Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        //     GameObject towerPrefab = GetTowerPrefab(selectedTower);
-
-        //     if (towerPrefab != null)
-        //     {
-        //         Instantiate(towerPrefab, mousePosition, Quaternion.identity);
-        //         Debug.Log("Placed Tower: " + selectedTower);
-        //     }
-        // }
     }
 
-    //GameObject GetTowerPrefab(TowerType t)
-    //{
-    //    switch (t)
-    //    {
-    //        case TowerType.None:
-    //            return null;
-    //        case TowerType.Basic:
-    //        case TowerType.Spread:
-    //        case TowerType.Shotgun:
-    //        case TowerType.Freeze:
-    //        case TowerType.Slow:
-    //    }
-    //}
+    Tower GetTowerPrefab(TowerType t)
+    {
+        switch (t)
+        {
+
+            case TowerType.Basic:
+                return (basicPrefab);
+            case TowerType.Spread:
+                return (spreadPrefab);
+            case TowerType.Shotgun:
+                return (shotgunPrefab);
+            case TowerType.Freeze:
+                return (freezePrefab);
+            case TowerType.Slow:
+                return (slowPrefab);
+            default:
+                return null;
+        }
+    }
 }

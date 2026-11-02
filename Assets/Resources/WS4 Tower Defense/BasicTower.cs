@@ -1,15 +1,13 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class AxoTower : MonoBehaviour
+public class BasicTower : Tower
 {
-    Tower myTower;
     [SerializeField] GameObject myProjectile;
-    
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        myTower = GetComponent<Tower>();
     }
 
     // Update is called once per frame
@@ -18,10 +16,8 @@ public class AxoTower : MonoBehaviour
         //every myTower.attackspeed, attack()
     }
 
-    void Attack()
+    public override void Shoot(GameObject target)
     {
-        myTower.FindEnemy();
 
-        //instantiate projectile prefab
     }
 }
