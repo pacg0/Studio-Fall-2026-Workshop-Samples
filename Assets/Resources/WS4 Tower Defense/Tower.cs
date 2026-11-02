@@ -5,19 +5,6 @@ public class Tower : MonoBehaviour
     [SerializeField] private float attackRange; 
     [SerializeField] private float attackSpeed; 
     [SerializeField] float cost; 
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void FindEnemy()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");

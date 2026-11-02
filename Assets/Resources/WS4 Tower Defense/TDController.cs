@@ -13,7 +13,15 @@ public class TDController : MonoBehaviour
     void Update()
     {
     }
-    public void BeginWave(){
+    
+    public int getMoney()
+    {
+        return money;
+    }
 
+
+    
+    public void BeginWave(){
+        Debug.Log("wow");
     }
 }
