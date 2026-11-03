@@ -18,7 +18,6 @@ public class BasicTower : Tower
             {
                 currTarget = FindEnemy();
             }
-            Debug.Log(currTarget);
             RotateTowards(currTarget);
             GameObject p = Instantiate(projectile,transform.position,transform.rotation);
         }

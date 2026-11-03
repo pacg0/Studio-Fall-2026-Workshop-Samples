@@ -1,14 +1,31 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System.Data;
 using TMPro;
+using UnityEngine.UI;
 
 public class TDController : MonoBehaviour
 {
-    [SerializeField] int money = 5;
-    [SerializeField] private TextMeshProUGUI moneyText;
-    [SerializeField] private TextMeshProUGUI waveText;
+    [SerializeField] int money = 25;
+    [SerializeField] int lives = 50;
 
+    [Header("UI Elements")]
+    [SerializeField] TextMeshProUGUI waveCounterText;
+    [SerializeField] TextMeshProUGUI lifeCounterText;
+    [SerializeField] TextMeshProUGUI moneyCounterText;
+    [SerializeField] Button waveButton;
+
+    public static TDController instance;
+    private void Awake()
+    {
+        if (instance == null) { instance = this; }
+        else Destroy(this);
+
+        moneyCounterText.text = "Money: " + money;
+        lifeCounterText.text = "Lives: " + money;
+        waveCounterText.text = "Wave: " + waveCounter;
+    }
     //spawninfo binds a delay to a specific unit, unit will spawn then wait to spawn next one
     [System.Serializable]
     public class SpawnInfo
@@ -32,35 +49,27 @@ public class TDController : MonoBehaviour
     private int waveCounter = 0;
     private bool isSpawningWave = false;
 
-
-    void Start()
+    public void AddMoney(int amt)
     {
-    }
-
-    void Update()
-    {
-        if (moneyText != null)
-        {
-            moneyText.text = "Money: " + money;
-            //Debug.Log("good");
-        }
-
-        if (waveText != null)
-        {
-            waveText.text = "Wave: " + waveCounter;
-        }
+        money += amt;
+        moneyCounterText.text = "Money: " + money;
     }
 
     public bool TrySubtractMoney(int amt)
     {
         if (money - amt < 0) return false;
         money -= amt;
+        moneyCounterText.text = "Money: " + money;
         return true;
     }
-
-    public void AddMoney(int amt)
+    public void SubtractLives(int amt)
     {
-        money += amt;
+        lives -= amt;
+        lifeCounterText.text = "Lives: " + money;
+        if (lives <= 0)
+        {
+            Application.Quit();
+        }
     }
 
     public void BeginWave()
@@ -80,11 +89,13 @@ public class TDController : MonoBehaviour
         StartCoroutine(SpawnWaveRoutine(currentWaveIndex));
         currentWaveIndex++;
         waveCounter++;
+        waveCounterText.text = "Wave: " + waveCounter;
     }
 
     private IEnumerator SpawnWaveRoutine(int waveIndex)
     {
         isSpawningWave = true;
+        waveButton.interactable = false;
         WaveData currentWave = waves[waveIndex];
         Debug.Log($"Begin {currentWave.waveName}.");
 
@@ -102,6 +113,7 @@ public class TDController : MonoBehaviour
         }
 
         isSpawningWave = false;
-        //Debug.Log($"{currentWave.waveName} completed.");
+        waveButton.interactable = true;
     }
+
 }

@@ -25,14 +25,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] Tower freezePrefab;
     [SerializeField] Tower slowPrefab;
 
-    TDController controller;
-
-
-    private void Start()
-    {
-        controller = GetComponent<TDController>();
-    }
-
     void Update()
     {
         Vector3 p = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -67,10 +59,9 @@ public class UIManager : MonoBehaviour
         {
             ghost.SetActive(false);
             Tower t = GetTowerPrefab(selectedTower);
-            
             if (canPlace)
             {
-                if (controller.TrySubtractMoney(t.cost))
+                if (TDController.instance.TrySubtractMoney(t.cost))
                 {
                     Vector3 p = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                     Instantiate(t, p, Quaternion.identity);
