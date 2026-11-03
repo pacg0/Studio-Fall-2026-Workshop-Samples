@@ -4,13 +4,12 @@ using UnityEngine;
 public class BasicTower : Tower
 {
     GameObject currTarget;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         InvokeRepeating("Shoot", 0, attackSpeed);
     }
 
-    public override void Shoot()
+    protected override void Shoot()
     {
         if (EnemiesInRange())
         {

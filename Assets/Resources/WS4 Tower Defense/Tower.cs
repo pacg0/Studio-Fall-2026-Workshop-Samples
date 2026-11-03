@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public abstract class Tower : MonoBehaviour
 {
     [SerializeField] public GameObject projectile;
     public float attackRange;
     public float attackSpeed;
     public int cost;
 
-    public bool EnemiesInRange()
+    protected bool EnemiesInRange()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject target in targets)
@@ -21,7 +21,7 @@ public class Tower : MonoBehaviour
         return false;
     }
 
-    public GameObject FindEnemy()
+    protected GameObject FindEnemy()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -47,7 +47,7 @@ public class Tower : MonoBehaviour
         return null;
     }
 
-    public void RotateTowards(GameObject go)
+    protected void RotateTowards(GameObject go)
     {
         Vector2 direction = go.transform.position - transform.position;
 
@@ -56,6 +56,6 @@ public class Tower : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    public virtual void Shoot() { }
+    protected abstract void Shoot();
 
 }

@@ -8,7 +8,7 @@ public class SpreadTower : Tower
         InvokeRepeating("Shoot", 0, attackSpeed);
     }
 
-    public override void Shoot()
+    protected override void Shoot()
     {
         if (EnemiesInRange())
         {
