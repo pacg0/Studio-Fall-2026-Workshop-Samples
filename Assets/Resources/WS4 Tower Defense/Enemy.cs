@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class Enemy : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
+    private float originalMoveSpeed;
+    private Coroutine speedChangeCoroutine;
+    
     private Path pathScript;
     private List<Transform> assignedPathNodes;
     private float totalPathLength;
@@ -96,7 +100,35 @@ public class Enemy : MonoBehaviour
 
     public void ChangeSpeed(float newSpeed, float duration)
     {
+        //if duration = 0, the speed change is permanent. 
+        //else, just change their speed for the duration
         
+        if (duration <= 0f)
+        {
+            if (speedChangeCoroutine != null)
+            {
+                StopCoroutine(speedChangeCoroutine);
+                speedChangeCoroutine = null;
+            }
+            moveSpeed = newSpeed;
+            originalMoveSpeed = newSpeed;
+        }
+        else
+        {
+            if (speedChangeCoroutine != null)
+            {
+                StopCoroutine(speedChangeCoroutine);
+            }
+            speedChangeCoroutine = StartCoroutine(SpeedChangeRoutine(newSpeed, duration));
+        }
+    }
+
+    private IEnumerator SpeedChangeRoutine(float temporarySpeed, float duration)
+    {
+        moveSpeed = temporarySpeed;
+        yield return new WaitForSeconds(duration);
+        moveSpeed = originalMoveSpeed;
+        speedChangeCoroutine = null;
     }
 
     private void OnReachEnd()

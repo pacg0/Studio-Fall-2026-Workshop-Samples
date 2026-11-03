@@ -48,7 +48,7 @@ MonoBehaviour:
   projectile: {fileID: 1537889810674963059, guid: 117deee8d40628e4aa096fec05eb48dc, type: 3}
   attackRange: 5
   attackSpeed: 1
-  cost: 5
+  cost: 10
 --- !u!1 &8905971110292579614
 GameObject:
   m_ObjectHideFlags: 0

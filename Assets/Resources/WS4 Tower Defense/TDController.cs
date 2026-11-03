@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class TDController : MonoBehaviour
 {
-    [SerializeField] int money = 25;
-    [SerializeField] int lives = 50;
+    [SerializeField] int money = 5;
+    [SerializeField] int lives = 25;
 
     [Header("UI Elements")]
     [SerializeField] TextMeshProUGUI waveCounterText;
@@ -23,7 +23,7 @@ public class TDController : MonoBehaviour
         else Destroy(this);
 
         moneyCounterText.text = "Money: " + money;
-        lifeCounterText.text = "Lives: " + money;
+        lifeCounterText.text = "Lives: " + lives;
         waveCounterText.text = "Wave: " + waveCounter;
     }
     //spawninfo binds a delay to a specific unit, unit will spawn then wait to spawn next one
@@ -65,7 +65,7 @@ public class TDController : MonoBehaviour
     public void SubtractLives(int amt)
     {
         lives -= amt;
-        lifeCounterText.text = "Lives: " + money;
+        lifeCounterText.text = "Lives: " + lives;
         if (lives <= 0)
         {
             Application.Quit();
