@@ -5,10 +5,9 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private int health = 3;
     [SerializeField] private int reward = 1;
+    [SerializeField] private int livesTaken = 2;
 
-    TDController gameController;
-
-    //movement
+    [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
     private Path pathScript;
     private List<Transform> assignedPathNodes;
@@ -17,10 +16,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private bool takeNode8Branch = false;
     [Range(0f, 1f)] [SerializeField] private float progressU = 0f;
 
+
+
     void Start()
     {
-        pathScript = FindFirstObjectByType<Path>();
-        gameController = FindFirstObjectByType<TDController>();
+        pathScript = FindAnyObjectByType<Path>();
 
         //choose end path to take, calculate length
         takeNode8Branch = Random.value > 0.5f;
@@ -102,15 +102,14 @@ public class Enemy : MonoBehaviour
     private void OnReachEnd()
     {
         Destroy(gameObject);
-        //do some amount of damage to lives
+        TDController.instance.SubtractLives(livesTaken);
     }
 
     void OnDestroy()
     {
         if (distanceTraveled < totalPathLength)
         {
-            Debug.Log("true");
-            gameController.AddMoney(reward);
+            TDController.instance.AddMoney(reward);
         }
     }
 }
