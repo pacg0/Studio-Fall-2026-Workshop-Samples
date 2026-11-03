@@ -23,7 +23,11 @@ public class FlappyController : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
+        //get time change between loop and previous loop
         _counter += Time.deltaTime;
+
+        //spawn an obstacle if counter reaches set delay. 
+        //every 3-6 obstacles, spawn a moving obstacle
         if (_counter > _obstacleSpawnDelay)
         {
             if (_movingCooldown == 0)

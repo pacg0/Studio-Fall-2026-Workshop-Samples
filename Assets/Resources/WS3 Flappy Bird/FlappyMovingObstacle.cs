@@ -37,6 +37,6 @@ public class FlappyMovingObstacle : MonoBehaviour
         }
 
         //Debug.Log(transform.position.y);
-        Debug.Log(_goingDown);
+        //Debug.Log(_goingDown);
     }
 }
