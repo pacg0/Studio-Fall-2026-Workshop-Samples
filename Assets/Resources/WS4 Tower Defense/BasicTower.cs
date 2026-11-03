@@ -19,7 +19,7 @@ public class BasicTower : Tower
                 currTarget = FindEnemy();
             }
             RotateTowards(currTarget);
-            GameObject p = Instantiate(projectile,transform.position,transform.rotation);
+            Instantiate(projectile,transform.position,transform.rotation);
         }
     }
 }

@@ -788,7 +788,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Spread
 
-    5$'
+    15$'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4878,7 +4878,7 @@ MonoBehaviour:
   ghost: {fileID: 512978981}
   placeable: {fileID: 887191267}
   basicPrefab: {fileID: 1381879134534762972, guid: c356d69aa876f684faca7e8e9276e39f, type: 3}
-  spreadPrefab: {fileID: 0}
+  spreadPrefab: {fileID: 5334261513870141389, guid: cca5713347d38b948a10f507a3257f93, type: 3}
   shotgunPrefab: {fileID: 0}
   freezePrefab: {fileID: 0}
   slowPrefab: {fileID: 0}
