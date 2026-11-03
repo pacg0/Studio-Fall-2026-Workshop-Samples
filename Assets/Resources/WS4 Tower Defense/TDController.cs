@@ -1,10 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
 
 public class TDController : MonoBehaviour
 {
-    [SerializeField] int money = 25;
+    [SerializeField] int money = 5;
+    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private TextMeshProUGUI waveText;
 
     //spawninfo binds a delay to a specific unit, unit will spawn then wait to spawn next one
     [System.Serializable]
@@ -36,6 +39,16 @@ public class TDController : MonoBehaviour
 
     void Update()
     {
+        if (moneyText != null)
+        {
+            moneyText.text = "Money: " + money;
+            //Debug.Log("good");
+        }
+
+        if (waveText != null)
+        {
+            waveText.text = "Wave: " + waveCounter;
+        }
     }
 
     public bool TrySubtractMoney(int amt)
@@ -45,7 +58,10 @@ public class TDController : MonoBehaviour
         return true;
     }
 
-
+    public void AddMoney(int amt)
+    {
+        money += amt;
+    }
 
     public void BeginWave()
     {

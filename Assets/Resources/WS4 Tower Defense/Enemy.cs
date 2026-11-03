@@ -4,6 +4,9 @@ using System.Collections.Generic;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int health = 3;
+    [SerializeField] private int reward = 1;
+
+    TDController gameController;
 
     //movement
     [SerializeField] private float moveSpeed = 5f;
@@ -16,8 +19,8 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        //find path object
         pathScript = FindFirstObjectByType<Path>();
+        gameController = FindFirstObjectByType<TDController>();
 
         //choose end path to take, calculate length
         takeNode8Branch = Random.value > 0.5f;
@@ -91,9 +94,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void ChangeSpeed(float newSpeed, float duration)
+    {
+        
+    }
+
     private void OnReachEnd()
     {
         Destroy(gameObject);
         //do some amount of damage to lives
+    }
+
+    void OnDestroy()
+    {
+        if (distanceTraveled < totalPathLength)
+        {
+            Debug.Log("true");
+            gameController.AddMoney(reward);
+        }
     }
 }
